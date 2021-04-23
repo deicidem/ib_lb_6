@@ -24,6 +24,7 @@ public class Main {
 
         System.out.print("Введите координаты пустых ячеек (" + sizeX + " пар, max x: "+(sizeX-1)+", max y: "+(sizeY-1)+"), в формате y1,x1 y2,x2: ");
 
+//      Получаем координаты пустых ячеек
         List<int[]> emptyCells = Arrays.stream(sc.nextLine().split(" "))
                 .map(str -> str.split(","))
                 .map(arr -> new int[]{Integer.parseInt(arr[0]), Integer.parseInt(arr[1])})
@@ -75,12 +76,12 @@ public class Main {
             }
         }
 
-        for (String[][] table : tables) {
-            for (String[] strings : table) {
-                System.out.println(Arrays.toString(strings));
-            }
-            System.out.println();
-        }
+//        for (String[][] table : tables) {
+//            for (String[] strings : table) {
+//                System.out.println(Arrays.toString(strings));
+//            }
+//            System.out.println();
+//        }
         return result.toString();
     }
 
@@ -99,7 +100,8 @@ public class Main {
 
         // Количество пустых ячеек
         int nOfNull = sizeX * sizeY - message.length() % (sizeX * sizeY) - emptyCells.size() * tables.size();
-        System.out.println(nOfNull);
+//        System.out.println(nOfNull);
+
         //Заполняем последнюю таблицу с конца пустыми ячейками, отличными от null
         String[][] lastTable = tables.get(tables.size() - 1);
         for (int i = lastTable.length - 1; i >= 0; i--) {
@@ -116,6 +118,7 @@ public class Main {
             int index = ind / (sizeX * sizeY); // Номер таблицы
             // Проверяем ячейку на контент
             if (tables.get(index)[ind % sizeY][colIndex] == null) {
+//              Заполоняем ячейку
                 tables.get(index)[ind % sizeY][colIndex] = String.valueOf(message.charAt(i));
                 ind++;
             } else {
