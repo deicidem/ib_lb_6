@@ -22,7 +22,7 @@ public class Main {
         String order = sc.nextLine();
 //        String order = "351420";
 
-        System.out.print("Введите координаты пустых ячеек (" + sizeX + " пар, max x: "+(sizeX-1)+", max y: "+(sizeY-1)+"), в формате y1,x1 y2,x2: ");
+        System.out.print("Введите координаты пустых ячеек (max x: "+(sizeX-1)+", max y: "+(sizeY-1)+"), в формате y1,x1 y2,x2: ");
 
 //      Получаем координаты пустых ячеек
         List<int[]> emptyCells = Arrays.stream(sc.nextLine().split(" "))
@@ -30,9 +30,15 @@ public class Main {
                 .map(arr -> new int[]{Integer.parseInt(arr[0]), Integer.parseInt(arr[1])})
                 .collect(Collectors.toList());
 
+//        List<int[]> emptyCells = new ArrayList<>();
+//        emptyCells.add(new int[]{0,2});
+//        emptyCells.add(new int[]{0,5});
+//        emptyCells.add(new int[]{1,4});
+//        emptyCells.add(new int[]{2,1});
+//        emptyCells.add(new int[]{3,5});
         System.out.println("Введите сообщение:");
         String message = sc.nextLine();
-//        String message = "Привет сегодня 16 апреля";
+//        String message = "Привет сегодня 30 апреля 2021 года. Пятница";
 
         message = encode(message, sizeX, sizeY, order, emptyCells);
         System.out.println("Зашифрованное сообщение: " + message);
@@ -99,7 +105,7 @@ public class Main {
         }
 
         // Количество пустых ячеек
-        int nOfNull = sizeX * sizeY - message.length() % (sizeX * sizeY) - emptyCells.size() * tables.size();
+        int nOfNull = sizeX * sizeY - (message.length() + emptyCells.size() * tables.size()) % (sizeX * sizeY);
 //        System.out.println(nOfNull);
 
         //Заполняем последнюю таблицу с конца пустыми ячейками, отличными от null
@@ -112,6 +118,9 @@ public class Main {
                 }
             }
         }
+
+
+
         int ind = 0; // Индекс для работы с таблицей, независимый от индекса буквы в строке
         for (int i = 0; i < message.length(); i++) {
             int colIndex = order.indexOf(String.valueOf(ind / sizeY % sizeX)); // индекс номера столбца в order
